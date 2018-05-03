@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager
 import android.text.TextUtils
 import org.mozilla.focus.browser.BrowserFragment
 import org.mozilla.focus.home.pocket.Pocket
+import org.mozilla.focus.home.pocket.PocketOnboardingFragment
 import org.mozilla.focus.home.pocket.PocketVideoFragment
 import org.mozilla.focus.session.SessionManager
 import org.mozilla.focus.session.Source
@@ -52,6 +53,14 @@ object ScreenController {
         val settingsFragment = SettingsFragment.create()
         fragmentManager.beginTransaction()
                 .replace(R.id.container, settingsFragment, SettingsFragment.FRAGMENT_TAG)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun showPocketOnboarding(fragmentManager: FragmentManager) {
+        val pocketOnboardingFragment = PocketOnboardingFragment.create()
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, pocketOnboardingFragment, PocketOnboardingFragment.FRAGMENT_TAG)
                 .addToBackStack(null)
                 .commit()
     }
