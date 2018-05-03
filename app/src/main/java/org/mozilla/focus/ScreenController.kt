@@ -103,6 +103,7 @@ object ScreenController {
     }
 
     fun showPocketScreen(fragmentManager: FragmentManager) {
+        fragmentManager.popBackStack()
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PocketVideoFragment.create(Pocket.getRecommendedVideos()))
                 .addToBackStack(null)

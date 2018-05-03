@@ -7,15 +7,24 @@ package org.mozilla.focus.home.pocket
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_pocket_onboarding.*
 import org.mozilla.focus.R
+import org.mozilla.focus.ScreenController
 
 class PocketOnboardingFragment : Fragment() {
 
-    private lateinit var deferredVideos: PocketVideosDeferred
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_pocket_onboarding, container, false)
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        pocket_onboarding_button.setOnClickListener {
+            ScreenController.showPocketScreen(fragmentManager)
+        }
+    }
+
+
 
     companion object {
         const val FRAGMENT_TAG = "pocket_onboarding"
