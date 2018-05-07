@@ -23,7 +23,8 @@ class PocketOnboardingFragment : Fragment() {
             ScreenController.showPocketScreen(fragmentManager)
         }
 
-        asdf.text = resources.getString(R.string.pocket_home_tutorial_title, resources.getString(R.string.pocket_brand_name))
+        titleText.text = resources.getString(R.string.pocket_home_tutorial_title, resources.getString(R.string.pocket_brand_name))
+        descriptionText.text = resources.getString(R.string.pocket_home_tutorial_title, resources.getString(R.string.pocket_brand_name))
     }
 
 
