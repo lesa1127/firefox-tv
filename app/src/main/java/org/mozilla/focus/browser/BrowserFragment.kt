@@ -5,8 +5,8 @@
 package org.mozilla.focus.browser
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.annotation.UiThread
 import android.text.TextUtils
 import android.view.ContextMenu
@@ -34,6 +34,7 @@ import org.mozilla.focus.ext.toUri
 import org.mozilla.focus.home.BundledTilesManager
 import org.mozilla.focus.home.CustomTilesManager
 import org.mozilla.focus.home.HomeTilesManager
+import org.mozilla.focus.home.pocket.PocketOnboardingActivity
 import org.mozilla.focus.iwebview.IWebView
 import org.mozilla.focus.iwebview.IWebViewLifecycleFragment
 import org.mozilla.focus.session.NullSession
@@ -49,7 +50,6 @@ private const val ARGUMENT_SESSION_UUID = "sessionUUID"
 
 private const val TOAST_Y_OFFSET = 200
 
-private const val POCKET_ONBOARD_SHOWN_PREF = "pocket_onboarding_shown"
 /**
  * Fragment for displaying the browser UI.
  */
@@ -134,7 +134,7 @@ class BrowserFragment : IWebViewLifecycleFragment() {
                 (activity as MainActivity).onNonTextInputUrlEntered(value!!)
                 setOverlayVisibleByUser(false)
             }
-            NavigationEvent.POCKET -> ScreenController.showPocketOnboarding(fragmentManager)
+            NavigationEvent.POCKET -> asdf()
             NavigationEvent.PIN_ACTION -> {
                 this@BrowserFragment.url?.let { url ->
                     when (value) {
@@ -164,18 +164,11 @@ class BrowserFragment : IWebViewLifecycleFragment() {
         Unit
     }
 
-    private fun shouldShowPocketOnboarding(): Boolean {
-        if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                        POCKET_ONBOARD_SHOWN_PREF, false)) {
-            PreferenceManager.getDefaultSharedPreferences(context)
-                    .edit()
-                    .putBoolean(POCKET_ONBOARD_SHOWN_PREF, true)
-                    .apply()
-            return true
-        }
-        return false
-    }
+    fun asdf() {
+//        ScreenController.showPocketScreen(fragmentManager)
+        startActivity(Intent(context, PocketOnboardingActivity::class.java))
 
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val layout = inflater.inflate(R.layout.fragment_browser, container, false)
