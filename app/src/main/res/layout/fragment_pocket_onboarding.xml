@@ -8,28 +8,34 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_home">
+    android:background="@color/pocket_onboarding_background">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/pocket_home_tutorial_title"
-        android:textSize="45sp"
-        android:layout_marginStart="30dp"/>
+        android:textSize="35sp"
+        android:layout_marginBottom="27dp"
+        android:layout_marginTop="27dp"
+        android:textAlignment="center"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/pocket_mega_tile"
+        android:layout_marginBottom="27dp"
+        android:layout_marginTop="27dp"
         android:scaleType="fitCenter"
         android:layout_gravity="center"/>
 
     <TextView
+        android:id="@+id/asdf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/pocket_home_tutorial_description"
-        android:textSize="45sp"
-        android:layout_marginStart="30dp"/>
+        android:textSize="20sp"
+        android:layout_marginBottom="27dp"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/pocket_onboarding_button"

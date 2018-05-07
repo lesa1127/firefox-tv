@@ -22,6 +22,8 @@ class PocketOnboardingFragment : Fragment() {
         pocket_onboarding_button.setOnClickListener {
             ScreenController.showPocketScreen(fragmentManager)
         }
+
+        asdf.text = resources.getString(R.string.pocket_home_tutorial_title, resources.getString(R.string.pocket_brand_name))
     }
 
 
