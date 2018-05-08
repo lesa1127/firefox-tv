@@ -7,6 +7,7 @@ package org.mozilla.focus.browser
 import android.content.Context
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.preference.PreferenceManager
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -35,6 +36,8 @@ import kotlin.properties.Delegates
 
 private const val NAVIGATION_BUTTON_ENABLED_ALPHA = 1.0f
 private const val NAVIGATION_BUTTON_DISABLED_ALPHA = 0.3f
+
+private const val SHOW_UNPIN_TOAST_COUNTER_PREF = "show_upin_toast_counter"
 
 private const val COL_COUNT = 5
 
@@ -122,8 +125,6 @@ class BrowserNavigationOverlay @JvmOverloads constructor(
 
         val tintDrawable: (Drawable?) -> Unit = { it?.setTint(ContextCompat.getColor(context, R.color.tv_white)) }
         navUrlInput.compoundDrawablesRelative.forEach(tintDrawable)
-
-        Toast.makeText(context, R.string.homescreen_unpin_tutorial_toast, Toast.LENGTH_LONG).show()
     }
 
     private fun initTiles() = with (tileContainer) {
@@ -135,7 +136,16 @@ class BrowserNavigationOverlay @JvmOverloads constructor(
                     onNavigationEvent?.invoke(NavigationEvent.LOAD_TILE, urlStr, null)
                 }
             }
-        }, onTileLongClick = openHomeTileContextMenu)
+        }, onTileLongClick = openHomeTileContextMenu, onTileFocused = {
+            val prefInt = PreferenceManager.getDefaultSharedPreferences(context).getInt(SHOW_UNPIN_TOAST_COUNTER_PREF, 0)
+            if (prefInt < 2) {
+                PreferenceManager.getDefaultSharedPreferences(context)
+                        .edit()
+                        .putInt(SHOW_UNPIN_TOAST_COUNTER_PREF, prefInt + 1)
+                        .apply()
+                Toast.makeText(context, R.string.homescreen_unpin_tutorial_toast, Toast.LENGTH_SHORT).show()
+            }
+        })
         layoutManager = GridLayoutManager(context, COL_COUNT)
         setHasFixedSize(true)
 
